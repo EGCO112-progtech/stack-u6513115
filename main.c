@@ -7,6 +7,7 @@
 int main(int argc, char **argv) {
 
   int i, N, j, count;
+  int checkmatch,checkclose,checkopen;
   Stack s;
   s.top = NULL;
   s.size = 0;
@@ -16,11 +17,9 @@ int main(int argc, char **argv) {
   for (i = 1; i < argc; i++) // argc 0 is program name
   {
     N = 0; // check error
-
-    /*if (strlen(argv[i]) % 2 != 0) {
-      printf("argv %d : InCorrect!!!!\n", i);
-      break;
-    }*/
+    checkmatch = 0;
+    checkclose = 0;
+    checkopen = 0;
 
     for (j = 0; j < strlen(argv[i]); j++) {
       switch (argv[i][j]) {
@@ -34,23 +33,31 @@ int main(int argc, char **argv) {
         break;
       case '}':
         if (pops(&s) != '{')
+          // pops(&s);
           N = 1;
+        if (pops(&s) == 0)
         break;
       case ']':
         if (pops(&s) != '[')
+          // pops(&s);
           N = 1;
+        if (pops(&s) == 0)
         break;
       }
     }
 
     if (s.size > 0) {
       // printf("Incorrect: too many open parenthesis\n");
-      N = 1;
+      N = 2;
     }
     if (N == 0)
       printf("argv %d : Correct\n", i);
-    else
-      printf("argv %d : InCorrect\n", i);
+    else if (N == 2)
+      printf("Incorrect: too many open parenthesis\n");
+    else if (N == 3)
+      printf("Incorrect: too many close parenthesis\n");
+    else if (N == 1)
+      printf("argv %d : InCorrect: Mismatch\n", i);
     pop_alls(&s);
   }
   printf("****************************\n");
