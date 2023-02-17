@@ -9,7 +9,7 @@
 #ifndef linkedlist_h
 #define linkedlist_h
 struct node {
-  int data;
+  char data;
   struct node *nextPtr;
 };
 

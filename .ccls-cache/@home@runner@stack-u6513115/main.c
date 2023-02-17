@@ -6,23 +6,54 @@
 
 int main(int argc, char **argv) {
 
-  int i, N, j;
+  int i, N, j, count;
   Stack s;
   s.top = NULL;
   s.size = 0;
 
   printf("****************************\n");
-  printf("atoi(argv[i]) = ");
+
   for (i = 1; i < argc; i++) // argc 0 is program name
   {
-    pushs(&s, atoi(argv[i]));
-    printf("%d\t", atoi(argv[i]));
+    N = 0; // check error
+
+    /*if (strlen(argv[i]) % 2 != 0) {
+      printf("argv %d : InCorrect!!!!\n", i);
+      break;
+    }*/
+
+    for (j = 0; j < strlen(argv[i]); j++) {
+      switch (argv[i][j]) {
+      case '{':
+        pushs(&s, argv[i][j]);
+        // printf("%c\n", argv[i][j]);
+        break;
+      case '[':
+        pushs(&s, argv[i][j]);
+        // printf("%c\n", argv[i][j]);
+        break;
+      case '}':
+        if (pops(&s) != '{')
+          N = 1;
+        break;
+      case ']':
+        if (pops(&s) != '[')
+          N = 1;
+        break;
+      }
+    }
+
+    if (s.size > 0) {
+      // printf("Incorrect: too many open parenthesis\n");
+      N = 1;
+    }
+    if (N == 0)
+      printf("argv %d : Correct\n", i);
+    else
+      printf("argv %d : InCorrect\n", i);
+    pop_alls(&s);
   }
   printf("****************************\n");
-
-  while (s.top) {
-    printf("%d\n", pops(&s));
-  }
 
   /*
   printf("****************************\n");

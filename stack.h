@@ -8,7 +8,7 @@ typedef struct {
 } Stack;
 
 typedef Stack *StackPtr;
-void pushs(StackPtr s, int x) {
+void pushs(StackPtr s, char x) {
   Node *new_node = (NodePtr)malloc(sizeof(Node));
   if (new_node) {
     new_node->data = x;
@@ -18,22 +18,23 @@ void pushs(StackPtr s, int x) {
   }
 }
 
-int pops(StackPtr s) {
+char pops(StackPtr s) {
   NodePtr t = s->top;
-  if (t != NULL) {       // if(t)
-    int value = t->data; //(*top)->data
-    s->top = t->nextPtr; //(*top)->nextPtr
+  if (t != NULL) {        // if(t)
+    char value = t->data; //(*top)->data
+    s->top = t->nextPtr;  //(*top)->nextPtr
     s->size--;
     free(t);
     return value;
   }
-  printf("Empty Stack\n");
+  //printf("Empty Stack\n");
   return 0;
 }
-void pop_all(StackPtr s)//เอา pop ออก จน size เป็น 0
+void pop_alls(StackPtr s) //เอา pop ออก จน size เป็น 0
 {
-  while(s->size>0){
-    printf("%d\n",pops(s));
+  while (s->size > 0) {
+    pops(s);
+    s->size--;
   }
 }
 #endif
