@@ -1,4 +1,5 @@
 #include "node.h"
+#include "stack.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -6,18 +7,21 @@
 int main(int argc, char **argv) {
 
   int i, N, j;
-  NodePtr top = NULL;
+  Stack s;
+  s.top = NULL;
+  s.size = 0;
 
   printf("****************************\n");
   printf("atoi(argv[i]) = ");
   for (i = 1; i < argc; i++) // argc 0 is program name
   {
-    push(&top, atoi(argv[i]));
+    pushs(&s, atoi(argv[i]));
     printf("%d\t", atoi(argv[i]));
   }
   printf("****************************\n");
-  while (top) {
-    printf("%d\n", pop(&top));
+
+  while (s.top) {
+    printf("%d\n", pops(&s));
   }
 
   /*
