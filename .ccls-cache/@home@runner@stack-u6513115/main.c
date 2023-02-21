@@ -6,8 +6,8 @@
 
 int main(int argc, char **argv) {
 
-  int i, N, j, count;
-  int checkmatch,checkclose,checkopen;
+  int i, N, j;
+  int ckop,ckcl;
   Stack s;
   s.top = NULL;
   s.size = 0;
@@ -17,47 +17,46 @@ int main(int argc, char **argv) {
   for (i = 1; i < argc; i++) // argc 0 is program name
   {
     N = 0; // check error
-    checkmatch = 0;
-    checkclose = 0;
-    checkopen = 0;
+
+    /*if (strlen(argv[i]) % 2 != 0) {
+      printf("argv %d : InCorrect!!!!\n", i);
+      break;
+    }*/
 
     for (j = 0; j < strlen(argv[i]); j++) {
       switch (argv[i][j]) {
       case '{':
         pushs(&s, argv[i][j]);
+        ckop++;
         // printf("%c\n", argv[i][j]);
         break;
       case '[':
         pushs(&s, argv[i][j]);
+        ckop++;
         // printf("%c\n", argv[i][j]);
         break;
       case '}':
+        ckcl++;
         if (pops(&s) != '{')
-          // pops(&s);
           N = 1;
-        if (pops(&s) == 0)
         break;
       case ']':
+        ckcl++;
         if (pops(&s) != '[')
-          // pops(&s);
           N = 1;
-        if (pops(&s) == 0)
         break;
       }
     }
 
     if (s.size > 0) {
       // printf("Incorrect: too many open parenthesis\n");
-      N = 2;
+      N = 1;
     }
     if (N == 0)
       printf("argv %d : Correct\n", i);
-    else if (N == 2)
-      printf("Incorrect: too many open parenthesis\n");
-    else if (N == 3)
-      printf("Incorrect: too many close parenthesis\n");
-    else if (N == 1)
-      printf("argv %d : InCorrect: Mismatch\n", i);
+    else if (ckop>ck)
+    else
+      printf("argv %d : InCorrect\n", i);
     pop_alls(&s);
   }
   printf("****************************\n");
