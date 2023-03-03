@@ -12,11 +12,12 @@ int main(int argc, char **argv) {
   s.top = NULL;
   s.size = 0;
 
-  printf("****************************\n");
-
   for (i = 1; i < argc; i++) // argc 0 is program name
   {
-    N = 0; // check error
+    // check error
+    N = 0; 
+    ckop = 0;
+    ckcl = 0;
 
     /*if (strlen(argv[i]) % 2 != 0) {
       printf("argv %d : InCorrect!!!!\n", i);
@@ -49,17 +50,20 @@ int main(int argc, char **argv) {
     }
 
     if (s.size > 0) {
-      // printf("Incorrect: too many open parenthesis\n");
       N = 1;
     }
     if (N == 0)
-      printf("argv %d : Correct\n", i);
-    else if (ckop>ck)
-    else
-      printf("argv %d : InCorrect\n", i);
+      printf("argv %d : correct\n", i);
+    else if (ckop>ckcl)
+      printf("argv %d : incorrect: too many open parenthesis\n", i);
+    else if (ckcl>ckop)
+      printf("argv %d : incorrect: too many closed parenthesis\n", i);
+    else if (ckcl==ckop&&N==1)
+      printf("argv %d : incorrect: mismatch\n", i);
     pop_alls(&s);
+
   }
-  printf("****************************\n");
+  
 
   /*
   printf("****************************\n");
